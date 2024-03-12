@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  nuxt:
+    build:
+      context: .
+    image: timbo_landings_dev
+    container_name: timbo_landings_dev
+    command: npm run dev
+    volumes:
+    - .:/frontend
+    - /frontend/node_modules
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+    networks:
+      - proxy
+    tmpfs: /tmp
+networks:
+    proxy:
+      name: network_timbo
+      external: true
