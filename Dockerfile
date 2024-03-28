@@ -1,22 +1,16 @@
 # use node 16 alpine image
 FROM node:21-alpine3.17
 
-# create work directory in app folder
-WORKDIR /frontend
+WORKDIR /app
 
-# install required packages for node image
-RUN apk --no-cache add openssh g++ make python3 git
+COPY package*.json ./
 
-# copy over package.json files
-COPY package.json /frontend/
-COPY yarn.lock /frontend/
+RUN npm install
 
-# install all depencies
-RUN yarn install && yarn cache clean --force
+COPY . .
 
-# copy over all files to the work directory
-ADD . /frontend
-
-# expose the host and port 3000 to the server
-ENV HOST 0.0.0.0
 EXPOSE 3000
+
+RUN npm run build
+CMD [ "npm", "run", "start" ]
+

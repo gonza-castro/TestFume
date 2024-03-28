@@ -4,7 +4,7 @@ export default <RouterConfig> {
 	routes: (_routes) => [
 		{
 			name: 'home',
-			path: '/',
+3 			path: '/app/web',
 			component: () => import('~/pages/index.vue').then(r => r.default || r),
 		},
 	],
